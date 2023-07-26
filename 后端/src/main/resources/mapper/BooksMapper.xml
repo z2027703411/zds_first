@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.demo.dao.BooksDao">
+
+
+    <select id="getBooksList" resultType="com.project.demo.bean.Books">
+        select * from zds_books where id>0
+        <if test="typeId != null and typeId !=0"> and typeid=#{typeId}</if>
+        <if test="name != null and name !=''"> and name like concat('%', #{name}, '%')</if>
+        order by id desc
+        <if test="name == null or name ==''">limit #{pageStart},#{pageSize}</if>
+    </select>
+
+    <select id="boosTypeList" resultType="com.project.demo.bean.BooksType">
+        select * from zds_books_type
+    </select>
+
+    <select id="getBooksCounts" resultType="java.lang.Integer">
+        select count(*) from zds_books where id>0
+        <if test="typeId != null and typeId !=0"> and typeid=#{typeId}</if>
+        <if test="name!=null and name!=''">and name like concat('%', #{name}, '%')</if>
+        order by id desc
+    </select>
+
+    <update id="updateBookState">
+        update zds_books set state=#{state} where id=#{id}
+    </update>
+
+    <insert id="addBook" keyProperty="id">
+        insert into zds_books
+        (name,stock,publish,author,typeid,addtime,state)
+        value
+        (#{name},#{stock},#{publish},#{author},#{typeId},#{addTime},#{state})
+    </insert>
+
+    <delete id="deleteBook">
+        delete from zds_books where id=#{id}
+    </delete>
+
+   <select id="getUpdateBook" resultType="com.project.demo.bean.Books">
+       select * from zds_books where id=#{id}
+   </select>
+
+    <update id="editBook">
+        update zds_books set name=#{name},author=#{author},publish=#{publish},stock=#{stock},typeid=#{typeId} where id=#{id}
+    </update>
+</mapper>

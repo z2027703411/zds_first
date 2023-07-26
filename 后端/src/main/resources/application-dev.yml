@@ -1,0 +1,4 @@
+#本机配置
+file:
+  staticPatternPath: /uploadimg/**
+  uploadFolder: D:/一个没卵用的测试文件/fwq/

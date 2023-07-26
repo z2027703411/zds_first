@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.demo.dao.EmailVcodeDao">
+    <insert id="addVcode" keyProperty="id">
+        insert into zds_email_vcode
+        (email,vcode,addtime)
+        value
+        (#{email},#{vcode},#{addTime})
+    </insert>
+
+    <select id="emailVcodeList" resultType="com.project.demo.bean.EmailVcode">
+        select * from zds_email_vcode
+        where email=#{email}
+        order by id desc
+    </select>
+</mapper>
